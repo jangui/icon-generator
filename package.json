@@ -1,0 +1,24 @@
+{
+  "name": "nft",
+  "version": "1.0.0",
+  "description": "",
+  "main": "generate.js",
+  "type": "module",
+  "scripts": {
+    "test": "node generate.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jangui/NFT.git"
+  },
+  "author": "jangui",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jangui/NFT/issues"
+  },
+  "homepage": "https://github.com/jangui/NFT#readme",
+  "dependencies": {
+    "canvas-sketch": "^0.7.4",
+    "canvas-sketch-cli": "^1.11.14"
+  }
+}
