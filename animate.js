@@ -12,6 +12,7 @@ const sketch = ({context, width, height}) => {
     return ( ({context, width, height}) => {
         const grid = new MirroredGrid();
         grid.draw(context, width, height);
+        console.log(grid.colors);
     });
 };
 

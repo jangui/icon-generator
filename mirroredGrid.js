@@ -1,3 +1,11 @@
+import hsl2rgb from './hsl2rgb.js';
+
+const randRange = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
 class MirroredGrid {
     constructor() {
         this.genDimensions();
@@ -7,8 +15,8 @@ class MirroredGrid {
     genDimensions() {
         let chance = Math.random();
         if (chance < 0.6) {
-            this.rows = 30;
-            this.cols = 30;
+            this.rows = 10;
+            this.cols = 10;
         } else if (chance < 0.9) {
             this.rows = 20;
             this.cols = 20;
@@ -16,24 +24,30 @@ class MirroredGrid {
                 this.cols = 25;
             }
         } else {
-            this.rows = 10;
-            this.cols = 10;
+            this.rows = 30;
+            this.cols = 30;
         }
     }
 
     genColors() {
-        this.colors = ['red', 'black', 'orange'];
+        this.colors = [this.genColor(), this.genColor(), this.genColor()];
         /*
-        this.colors = [this.genColor(), this.genColor()];
-        if (Math.random < 0.5) {
+        if (Math.random < 0.7) {
             this.colors.push(this.genColor());
         }
-
         */
+
     }
 
     genColor() {
-        // pass
+      //saturation is the whole color spectrum
+      const h = Math.floor(randRange(1, 360));
+      //saturation goes from 40 to 100, it avoids greyish colors
+      const s = randRange(40, 100);
+      //lightness can be anything from 0 to 100, but probabilities are a bell curve around 50%
+      const l = (randRange(1, 25) + randRange(1, 25) + randRange(1, 25) + randRange(1, 25));
+
+      return hsl2rgb(h / 360, s / 100, l / 100);
     }
 
     chooseColor() {
@@ -57,6 +71,11 @@ class MirroredGrid {
             }
         }
 
+    }
+
+    getColor(colorInd) {
+        const rgb = this.colors[colorInd % this.colors.length];
+        return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${rgb[3]})`;
     }
 
     draw(context, width, height) {
@@ -83,7 +102,7 @@ class MirroredGrid {
 
                 // choose and save color
                 let colorInd = this.chooseColor();
-                let color = this.colors[colorInd % this.colors.length]
+                let color = this.getColor(colorInd);
                 columnColors.push(color);
 
                 // draw
